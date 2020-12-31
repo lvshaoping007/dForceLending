@@ -10,8 +10,10 @@ Install packages:
 
 ```
 npm install
+mv .example.env .env
 ```
 
+*Should edit the `.env` file with your local environment variables.*
 
 ##### Compile
 
@@ -27,11 +29,6 @@ npx hardhat test
 
 ##### Deploy
 
-```
-mv .example.env .env
-```
-
-*Should edit the `.env` file with your local environment variables.*
 
 ```
 npx hardhat run scripts/deploy.js --network kovan

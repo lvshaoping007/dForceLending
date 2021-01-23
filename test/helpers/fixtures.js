@@ -1,6 +1,7 @@
 const { utils, BigNumber } = require("ethers");
 const { waffle } = require("hardhat");
 const { createFixtureLoader, deployMockContract } = waffle;
+const { deployProxy } = require("./utils");
 
 const MockPriceOracle = require("../../artifacts/contracts/interface/IPriceOracle.sol/IPriceOracle.json");
 
@@ -32,9 +33,7 @@ async function setPrices(iToken) {
   );
 
   // Sets price.
-  await oracle
-    .connect(owner)
-    .setPrices([iToken.address], [autualFeedingPrice]);
+  await oracle.connect(owner).setPrices([iToken.address], [autualFeedingPrice]);
 }
 
 async function distributeUnderlying(underlying, iToken) {
@@ -109,7 +108,7 @@ async function deployiToken(
   await underlying.deployed();
 
   const IToken = await ethers.getContractFactory("iToken");
-  const iToken = await upgrades.deployProxy(
+  const iToken = await deployProxy(
     IToken,
     [
       underlying.address,
@@ -155,7 +154,7 @@ async function addiETH(
   // await underlying.deployed();
 
   const IETH = await ethers.getContractFactory("iETH");
-  const iETH = await upgrades.deployProxy(
+  const iETH = await deployProxy(
     IETH,
     [
       // underlying.address,
@@ -205,7 +204,7 @@ async function deployRewardDistributor(controller) {
     "RewardDistributor"
   );
 
-  const rewardDistributor = await upgrades.deployProxy(
+  const rewardDistributor = await deployProxy(
     RewardDistributor,
     [controller.address],
     {
@@ -220,7 +219,7 @@ async function deployRewardDistributor(controller) {
 async function fixtureDeployController([wallet, other], provider) {
   const Controller = await ethers.getContractFactory("Controller");
 
-  const controller = await upgrades.deployProxy(Controller, [], {
+  const controller = await deployProxy(Controller, [], {
     unsafeAllowCustomTypes: true,
     initializer: "initialize",
   });
@@ -429,9 +428,7 @@ async function fixtureShortfall([wallet, other], provider) {
   await controller
     .connect(user0)
     .enterMarkets([iToken0.address, iToken1.address]);
-  await iToken1
-    .connect(user0)
-    .borrow(mintiToken1Amount.div(2).mul(9).div(10));
+  await iToken1.connect(user0).borrow(mintiToken1Amount.div(2).mul(9).div(10));
 
   // underlying0 price drop to 0.5
   await mockPriceOracle.mock.getUnderlyingPrice

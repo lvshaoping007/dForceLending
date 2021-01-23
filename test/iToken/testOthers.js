@@ -7,7 +7,7 @@ const {
   fixtureDefault,
 } = require("../helpers/fixtures.js");
 
-const { rmul, parseTokenAmount } = require("../helpers/utils.js");
+const { rmul, divup, parseTokenAmount } = require("../helpers/utils.js");
 
 const zeroAddress = ethers.constants.AddressZero;
 const BASE = ethers.utils.parseEther("1");
@@ -149,9 +149,7 @@ describe("iToken", function () {
 
       // it is the first time to borrow.
       let borrowAmout = await parseTokenAmount(iToken, 100);
-      let user1BeforeBorrowBalance = await iToken.borrowSnapshot(
-        user1.address
-      );
+      let user1BeforeBorrowBalance = await iToken.borrowSnapshot(user1.address);
       expect(user1BeforeBorrowBalance[0]).to.equal(0);
 
       await iToken.connect(user1).borrow(borrowAmout);
@@ -165,10 +163,10 @@ describe("iToken", function () {
         user1.address
       );
 
-      let expectBorrowAmount = user1AfterBorrowBalance[0]
-        .mul(user1CurrentBorrowBalance[1])
-        .div(user1AfterBorrowBalance[1])
-        .add(borrowAmout);
+      let expectBorrowAmount = divup(
+        user1AfterBorrowBalance[0].mul(user1CurrentBorrowBalance[1]),
+        user1AfterBorrowBalance[1]
+      ).add(borrowAmout);
       expect(user1CurrentBorrowBalance[0]).to.equal(expectBorrowAmount);
     });
 
@@ -237,13 +235,21 @@ describe("iToken", function () {
   describe("Test library ERC 20", async function () {
     it("Should revert due to transfer from the zero address", async function () {
       await expect(
-        underlying.connect(user2).transferFrom(zeroAddress, user2.address,  ethers.utils.parseUnits("1", "wei"))
+        underlying
+          .connect(user2)
+          .transferFrom(
+            zeroAddress,
+            user2.address,
+            ethers.utils.parseUnits("1", "wei")
+          )
       ).to.be.revertedWith("ERC20: transfer from the zero address");
     });
 
     it("Should revert due to burn from the zero address", async function () {
       await expect(
-        underlying.connect(user2).burn(zeroAddress, ethers.utils.parseUnits("1", "wei"))
+        underlying
+          .connect(user2)
+          .burn(zeroAddress, ethers.utils.parseUnits("1", "wei"))
       ).to.be.revertedWith("ERC20: burn from the zero address");
     });
   });

@@ -106,6 +106,10 @@ function rdiv(a, b) {
   return a.mul(BASE).div(b);
 }
 
+function divup(a, b) {
+  return a.add(b.sub(1)).div(b);
+}
+
 function getInitializerData(ImplFactory, args, initializer) {
   if (initializer === false) {
     return "0x";
@@ -201,4 +205,5 @@ module.exports = {
   getProxyAdmin,
   rmul,
   rdiv,
+  divup,
 };

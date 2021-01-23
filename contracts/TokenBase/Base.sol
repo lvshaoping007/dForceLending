@@ -321,7 +321,10 @@ abstract contract Base is TokenERC20 {
         BorrowSnapshot storage borrowSnapshot = accountBorrows[_borrower];
         borrowSnapshot.principal = _accountBorrows.sub(_actualRepayAmount);
         borrowSnapshot.interestIndex = borrowIndex;
-        totalBorrows = totalBorrows.sub(_actualRepayAmount);
+
+        totalBorrows = totalBorrows < _actualRepayAmount
+            ? 0
+            : totalBorrows.sub(_actualRepayAmount);
 
         // Defense hook.
         controller.afterRepayBorrow(
@@ -537,7 +540,7 @@ abstract contract Base is TokenERC20 {
         // Calculate new borrow balance with market new borrow index:
         //   recentBorrowBalance = borrower.borrowBalance * market.borrowIndex / borrower.borrndowIex
         return
-            borrowSnapshot.principal.mul(borrowIndex).div(
+            borrowSnapshot.principal.mul(borrowIndex).divup(
                 borrowSnapshot.interestIndex
             );
     }

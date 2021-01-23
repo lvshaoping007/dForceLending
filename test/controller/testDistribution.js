@@ -8,6 +8,7 @@ const {
   verifyAllowError,
   rdiv,
   rmul,
+  divup,
 } = require("../helpers/utils.js");
 
 const {
@@ -581,12 +582,11 @@ describe("Update Distribution State", function () {
           account1
         ),
         // Calculate the borrow balance in advance
-        borrowBalance: rmul(
-          rdiv(
-            await iToken.borrowBalanceStored(account1),
-            await iToken.borrowIndex()
+        borrowBalance: divup(
+          (await iToken.borrowBalanceStored(account1)).mul(
+            (await getiTokenCurrentData(iToken, blockDelta)).borrowIndex
           ),
-          (await getiTokenCurrentData(iToken, blockDelta)).borrowIndex
+          await iToken.borrowIndex()
         ),
       };
 

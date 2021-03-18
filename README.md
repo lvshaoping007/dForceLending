@@ -34,55 +34,51 @@ npx hardhat test
 npx hardhat run scripts/deploy.js --network kovan
 ```
 
-## Kovan Contract Address(2020-12-30)
+## Ethereum Contracts (Mar 18, 2021)
 
 <table>
 	<tr>
         <th>Contract Name</th>
     	<th>Contract Address</th>
 	</tr>
-	<tr>
-		<td> Controller </td>
-		<td> 0x0827988f0f23AAa77E4677055D80217b59279beF </td>
-	</tr>
-	<tr>
-		<td> Interest Model </td>
-		<td> 0xe2222214c86690c797e442990a0D423280E89223 </td>
-	</tr>
-    <tr>
-		<td> Oracle </td>
-		<td> 0xd0891f5f55dF4D9739FD9A774F86280914C5914d </td>
-	</tr>
-	<tr>
-		<td> LendingData </td>
-		<td> 0x57cCd442b8DC3BAb964f7078Bf33e34e1703B5c4 </td>
-	</tr>
-	<tr>
-		<td> USDC </td>
-		<td> 0x2ebE5cC3DE787C692c8458106f98B4A8392E111B </td>
-	</tr>
     <tr>
 		<td> iUSDC </td>
 		<td> 0xfc9b44D0A1521d569C72eB8A0Db214FBb6403076 </td>
-	</tr>
-    <tr>
-		<td> USDT </td>
-		<td> 0x128c10cAD3780a541325A2f4B9E449114aD11D6b </td>
 	</tr>
     <tr>
 		<td> iUSDT </td>
 		<td> 0xf20707546b80A6e582ffeB2C80a5e0FF196C090E </td>
 	</tr>
 	<tr>
-		<td> USDx </td>
-		<td> 0xC251A1Da17bE0Cea838f087051D0Cbf683B53054 </td>
-	</tr>
-	<tr>
-		<td> iUSDx </td>
-		<td> 0x15aaC42C25787fb45C9Ee01Df24963C0C019fF58 </td>
-	</tr>
-	<tr>
 		<td> iETH </td>
 		<td> 0xcE407FDBC15615F25B11dDc5197a1074aDFb39eA </td>
+	</tr>
+	<tr>
+		<td> iWBTC </td>
+		<td> 0x5812fCF91adc502a765E5707eBB3F36a07f63c02</td>
+	</tr>
+	<tr>
+		<td> iDAI </td>
+		<td> 0x298f243aD592b6027d4717fBe9DeCda668E3c3A8</td>
+	</tr>
+	<tr>
+		<td> iBUSD </td>
+		<td> 0x24677e213DeC0Ea53a430404cF4A11a6dc889FCe</td>
+	</tr>
+	<tr>
+		<td> iHBTC </td>
+		<td> 0x47566acD7af49D2a192132314826ed3c3c5f3698</td>
+	</tr>
+	<tr>
+		<td> iDF </td>
+		<td> 0xb3dc7425e63E1855Eb41107134D471DD34d7b239</td>
+	</tr>
+	<tr>
+		<td> iGOLDx </td>
+		<td> 0x164315EA59169D46359baa4BcC6479bB421764b6</td>
+	</tr>
+	<tr>
+		<td> iUNI </td>
+		<td> 0xbeC9A824D6dA8d0F923FD9fbec4FAA949d396320</td>
 	</tr>
 </table>
